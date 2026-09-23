@@ -10,10 +10,16 @@
   --border:       #292524;
   --border-soft:  #3A3632;
 
-  --accent:       #F59E0B;
-  --accent-hot:   #D97706;
-  --accent-glow:  rgba(217, 119, 6, 0.35);
-  --accent-glow-sm: rgba(217, 119, 6, 0.18);
+  --accent:       #F3D089;
+  --accent-hot:   #E8B86D;
+  --accent-glow:  rgba(235, 175, 100, 0.35);
+  --accent-glow-sm: rgba(235, 175, 100, 0.18);
+
+  /* Rose-magenta for destructive / active highlights */
+  --rose:         #FB7185;
+  --rose-hot:     #E11D48;
+  --rose-glow:    rgba(225, 29, 72, 0.30);
+  --rose-glow-sm: rgba(225, 29, 72, 0.15);
 
   --text-primary:   #F5F5F4;
   --text-secondary: #A8A29E;
@@ -38,10 +44,15 @@
   --border:       #E2D9D0;
   --border-soft:  #C8BDB6;
 
-  --accent:       #D97706;
-  --accent-hot:   #B45309;
-  --accent-glow:  rgba(217, 119, 6, 0.25);
-  --accent-glow-sm: rgba(217, 119, 6, 0.12);
+  --accent:       #E8B86D;
+  --accent-hot:   #C9963A;
+  --accent-glow:  rgba(200, 140, 50, 0.25);
+  --accent-glow-sm: rgba(200, 140, 50, 0.12);
+
+  --rose:         #FB7185;
+  --rose-hot:     #E11D48;
+  --rose-glow:    rgba(225, 29, 72, 0.22);
+  --rose-glow-sm: rgba(225, 29, 72, 0.10);
 
   --text-primary:   #1C1917;
   --text-secondary: #57534E;
@@ -124,7 +135,7 @@ header {
   justify-content: center;
   width: 34px;
   height: 34px;
-  background: var(--accent-hot);
+  background: var(--rose-hot);
   border-radius: var(--radius-sm);
   font-size: 16px;
   flex-shrink: 0;
@@ -167,9 +178,9 @@ header {
 }
 
 .header-nav .active-nav {
-  background: var(--accent-hot);
+  background: var(--rose-hot);
   color: #fff;
-  box-shadow: 0 0 14px var(--accent-glow), 0 0 28px var(--accent-glow-sm);
+  box-shadow: 0 0 14px var(--rose-glow), 0 0 28px var(--rose-glow-sm);
 }
 
 /* Theme toggle */
@@ -294,7 +305,7 @@ header {
 }
 
 .view-btn.active {
-  background: var(--accent-hot);
+  background: var(--rose-hot);
   color: #fff;
 }
 
@@ -332,10 +343,10 @@ header {
 }
 
 .show-tabs .active-tab {
-  background: var(--accent-hot);
-  border-color: var(--accent-hot);
+  background: var(--rose-hot);
+  border-color: var(--rose-hot);
   color: #fff;
-  box-shadow: 0 0 12px var(--accent-glow), 0 0 24px var(--accent-glow-sm);
+  box-shadow: 0 0 12px var(--rose-glow), 0 0 24px var(--rose-glow-sm);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -357,11 +368,25 @@ header {
 /* Card wrapper */
 .show-card {
   position: relative;
-  border-radius: var(--radius-md);
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(22, 14, 34, 0.65) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   cursor: pointer;
+  transition:
+    transform     0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow    0.25s ease,
+    border-color  0.25s ease;
+}
+
+.show-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.5),
+    0 0 20px var(--rose-glow);
+  border-color: rgba(255, 255, 255, 0.20);
 }
 
 /* Poster area (2:3 ratio) */
@@ -467,14 +492,13 @@ header {
   cursor: pointer;
 }
 
-/* Card footer */
+/* Card footer — two-line vertical hierarchy */
 .show-card-footer {
-  padding: 10px 12px;
+  padding: 10px 12px 11px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  border-top: 1px solid var(--border);
+  flex-direction: column;
+  gap: 3px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .show-card-title {
@@ -484,18 +508,52 @@ header {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  flex: 1;
-  min-width: 0;
+  line-height: 1.3;
 }
 
-/* Star rating on the right */
-.show-card-rating {
-  flex-shrink: 0;
+/* Secondary metadata line — muted lavender-gray */
+.show-card-meta {
   font-size: 11px;
-  font-weight: 700;
-  color: #F59E0B;
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.3;
+}
+
+/* Star rating — champagne gold */
+.show-card-rating {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
   white-space: nowrap;
 }
+
+/* Floating status badge — pinned to top-right of poster */
+.show-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(13, 8, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #F5F5F4;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Tint the badge accent by status */
+.show-card-badge--watched   { border-color: rgba(251, 113, 133, 0.40); color: #FDA4AF; }
+.show-card-badge--watchlist { border-color: rgba(147, 197, 253, 0.30); color: #93C5FD; }
+.show-card-badge--dropped   { border-color: rgba(255, 255, 255, 0.12); color: #9CA3AF; }
 
 .status-badge {
   flex-shrink: 0;
@@ -1211,4 +1269,408 @@ header {
 
 .overlay-edit-actions .overlay-btn {
   flex: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EDITORIAL POLISH
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Ambient spotlight glow ───────────────────────────── */
+/*
+ * Fixed pseudo-element so the glow stays in the top-left corner
+ * of the viewport as the user scrolls — like a distant light source.
+ * pointer-events: none and z-index: -1 keep it purely decorative.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;                   /* above petals (z-index: 1), below content */
+  background:
+    radial-gradient(circle at 15% 15%, rgba(217, 119, 6, 0.06), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(217, 119, 6, 0.04), transparent 40%);
+}
+
+/* Page content floats above both petal layer and ambient glow */
+header,
+main {
+  position: relative;
+  z-index: 10;
+}
+
+/* ── 2. Staggered fade-in animation ──────────────────────── */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Every direct child of the show grid fades in */
+.show-grid > * {
+  animation: fadeInUp 240ms ease both;
+}
+
+/* Stagger each card by its position (supports up to 12 per page) */
+.show-grid > *:nth-child(1)  { animation-delay:  0ms; }
+.show-grid > *:nth-child(2)  { animation-delay: 30ms; }
+.show-grid > *:nth-child(3)  { animation-delay: 60ms; }
+.show-grid > *:nth-child(4)  { animation-delay: 90ms; }
+.show-grid > *:nth-child(5)  { animation-delay: 120ms; }
+.show-grid > *:nth-child(6)  { animation-delay: 150ms; }
+.show-grid > *:nth-child(7)  { animation-delay: 180ms; }
+.show-grid > *:nth-child(8)  { animation-delay: 210ms; }
+.show-grid > *:nth-child(9)  { animation-delay: 240ms; }
+.show-grid > *:nth-child(10) { animation-delay: 270ms; }
+.show-grid > *:nth-child(11) { animation-delay: 300ms; }
+.show-grid > *:nth-child(12) { animation-delay: 330ms; }
+
+/* Ranking rows fade in too */
+.ranking-list > * {
+  animation: fadeInUp 240ms ease both;
+}
+
+.ranking-list > *:nth-child(1)  { animation-delay:  0ms; }
+.ranking-list > *:nth-child(2)  { animation-delay: 30ms; }
+.ranking-list > *:nth-child(3)  { animation-delay: 60ms; }
+.ranking-list > *:nth-child(4)  { animation-delay: 90ms; }
+.ranking-list > *:nth-child(5)  { animation-delay: 120ms; }
+.ranking-list > *:nth-child(6)  { animation-delay: 150ms; }
+.ranking-list > *:nth-child(7)  { animation-delay: 180ms; }
+.ranking-list > *:nth-child(8)  { animation-delay: 210ms; }
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .show-grid > *,
+  .ranking-list > * {
+    animation: none;
+  }
+}
+
+/* ── 3. Custom scrollbars ────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-soft);
+  border-radius: 999px;
+  transition: background 150ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent); /* ochre on hover */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-soft) transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SAKURA BACKGROUND
+   ═══════════════════════════════════════════════════════════ */
+
+/* Fixed full-screen stage — sits below ambient glow (z:2) and content (z:10) */
+.sakura-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/*
+ * Two-div strategy to avoid the transform-conflict bug:
+ *
+ *   .sakura-petal        — outer div  → sakuraSway (translateX)
+ *   .sakura-petal-inner  — inner div  → sakuraFall (translateY + rotate)
+ *
+ * Because each animation targets a separate element, the transforms
+ * compose correctly instead of overwriting each other.
+ */
+
+/* Outer: horizontal sway only */
+.sakura-petal {
+  position: absolute;
+  top: -20px;
+  border-radius: 150% 0 150% 0;   /* classic petal silhouette */
+  will-change: transform;
+  animation:
+    sakuraSway
+      var(--sway-dur,   5s)
+      var(--sway-delay, 0s)
+      ease-in-out
+      infinite
+      alternate;
+}
+
+/* Inner: vertical fall + rotation, sized to fill the outer div */
+.sakura-petal-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: inherit;
+  will-change: transform;
+  animation:
+    sakuraFall
+      var(--fall-dur,   16s)
+      var(--fall-delay, 0s)
+      linear
+      infinite;
+}
+
+/* Fall: top of viewport → below the fold, with a full rotation */
+@keyframes sakuraFall {
+  0%   { transform: translateY(-5vh)  rotate(var(--rotate-start, 0deg)); }
+  100% { transform: translateY(105vh) rotate(var(--rotate-end,   360deg)); }
+}
+
+/* Sway: pendulum left/right — alternates on each cycle */
+@keyframes sakuraSway {
+  from { transform: translateX(0); }
+  to   { transform: translateX(var(--sway-amount, 50px)); }
+}
+
+/* Reduced-motion guard (belt-and-suspenders alongside the JS check) */
+@media (prefers-reduced-motion: reduce) {
+  .sakura-container { display: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   LIVE WALLPAPER
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Container & SVG canvas ─────────────────────────────── */
+
+.lw-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Full-screen reference illustration */
+.lw-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Petal SVG sits above the image */
+.lw-svg,
+.lw-petals-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* rgba(13, 8, 20, 0.35) — light wash, illustration bleeds through clearly */
+.lw-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 8, 20, 0.35);
+  pointer-events: none;
+}
+
+/* ── Branch sway ────────────────────────────────────────── */
+
+.lw-branch {
+  will-change: transform;
+  animation: lwBranchSway 15s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+}
+
+@keyframes lwBranchSway {
+  0%   { transform: rotate(0deg);     }
+  28%  { transform: rotate(0.85deg);  }
+  55%  { transform: rotate(-0.55deg); }
+  78%  { transform: rotate(0.45deg);  }
+  100% { transform: rotate(-0.25deg); }
+}
+
+/* ── Mist drift ─────────────────────────────────────────── */
+
+.lw-mist-1 { animation: lwMistA 30s linear infinite;         }
+.lw-mist-2 { animation: lwMistA 42s linear infinite reverse; }
+.lw-mist-3 { animation: lwMistB 35s linear infinite;         }
+
+@keyframes lwMistA {
+  from { transform: translateX(0);       }
+  to   { transform: translateX(320px);   }
+}
+@keyframes lwMistB {
+  from { transform: translateX(0);       }
+  to   { transform: translateX(-260px);  }
+}
+
+/* ── Drifting petal — three-level compose ───────────────── */
+/*
+ * Level 1 (.lw-petal-sway)   → translateX wind oscillation
+ * Level 2 (.lw-petal-fall)   → translateY fall + rotateZ spin
+ * Level 3 (.lw-petal-tumble) → rotateX tilt for 3-D tumble
+ *
+ * Each level targets a separate element so transforms compose
+ * instead of overwriting each other.
+ */
+
+.lw-petal-sway {
+  will-change: transform;
+  animation:
+    lwSway
+      var(--sway-dur,   5s)
+      var(--sway-delay, 0s)
+      ease-in-out
+      infinite
+      alternate;
+}
+
+.lw-petal-fall {
+  will-change: transform;
+  animation:
+    lwFall
+      var(--fall-dur,   16s)
+      var(--fall-delay, 0s)
+      linear
+      infinite;
+}
+
+.lw-petal-tumble {
+  will-change: transform;
+  animation:
+    lwTumble
+      var(--tumble-dur, 2.5s)
+      0s
+      ease-in-out
+      infinite
+      alternate;
+}
+
+@keyframes lwSway {
+  from { transform: translateX(0); }
+  to   { transform: translateX(var(--sway-amt, 48px)); }
+}
+
+@keyframes lwFall {
+  0%   { transform: translateY(-30px)  rotateZ(var(--rot-start, 0deg));   }
+  100% { transform: translateY(930px)  rotateZ(var(--rot-end,   360deg)); }
+}
+
+@keyframes lwTumble {
+  from { transform: rotateX(0deg);                         }
+  to   { transform: rotateX(var(--tumble-amp, 40deg));     }
+}
+
+/* ── Glassmorphic surfaces ──────────────────────────────── */
+
+header {
+  background: rgba(22, 14, 34, 0.65) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Atmospheric gradient band that bleeds downward from the header
+   into the page — keeps nav pills crisp over the dense sakura canopy */
+header::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 8, 20, 0.72) 0%,
+    rgba(13, 8, 20, 0.30) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 9;
+}
+
+.show-card {
+  background: rgba(22, 14, 34, 0.65) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: border-color 200ms ease, box-shadow 200ms ease,
+              transform 200ms ease;
+}
+
+.show-card:hover {
+  border-color: rgba(244, 114, 182, 0.45) !important;
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.6),
+              0 0 18px var(--rose-glow-sm) !important;
+  transform: translateY(-2px);
+}
+
+.add-show,
+.ranking-block,
+.profile-stat-strip,
+.profile-spotlight-card,
+.profile-data-section,
+.empty-state {
+  background: rgba(22, 14, 34, 0.65) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Light mode — cream frost */
+.light header {
+  background: rgba(255, 248, 255, 0.78) !important;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.14) !important;
+}
+.light .show-card,
+.light .add-show,
+.light .ranking-block,
+.light .profile-stat-strip,
+.light .profile-spotlight-card,
+.light .profile-data-section,
+.light .empty-state {
+  background: rgba(255, 252, 255, 0.80) !important;
+  border: 1px solid rgba(124, 58, 237, 0.12) !important;
+}
+
+/* Reduced-motion — freeze everything, hide petals */
+@media (prefers-reduced-motion: reduce) {
+  .lw-branch      { animation: none; }
+  .lw-mist-1,
+  .lw-mist-2,
+  .lw-mist-3      { animation: none; }
+  .lw-petal-sway,
+  .lw-petal-fall,
+  .lw-petal-tumble { animation: none; display: none; }
+}
+
+/* ── Depth-of-field petals (~25%) ───────────────────────── */
+/* Applied via className to a subset of petals in LiveWallpaper.jsx */
+.lw-petal-dof {
+  filter: blur(1.5px);
+  opacity: 0.55 !important;
 }

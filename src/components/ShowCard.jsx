@@ -8,15 +8,14 @@ const STATUS_LABELS = {
 
 // onEditShow signature: (showId, { title, posterUrl })
 function ShowCard({ show, onStatusChange, onRequestDelete, onEditShow }) {
-  const [isEditing,    setIsEditing]    = useState(false);
-  const [editedTitle,  setEditedTitle]  = useState(show.title);
-  const [editedUrl,    setEditedUrl]    = useState(show.posterUrl || "");
+  const [isEditing,   setIsEditing]   = useState(false);
+  const [editedTitle, setEditedTitle] = useState(show.title);
+  const [editedUrl,   setEditedUrl]   = useState(show.posterUrl || "");
 
   function handleSave() {
     const t   = editedTitle.trim();
     const url = editedUrl.trim() || null;
     if (!t) return;
-    // Pass both fields — App decides what to persist
     onEditShow(show.id, { title: t, posterUrl: url });
     setIsEditing(false);
   }
@@ -41,10 +40,14 @@ function ShowCard({ show, onStatusChange, onRequestDelete, onEditShow }) {
           <div className="show-card-fallback">{show.title}</div>
         )}
 
+        {/* Floating status badge — top-right corner of poster */}
+        <span className={`show-card-badge show-card-badge--${show.status}`}>
+          {STATUS_LABELS[show.status]}
+        </span>
+
         {/* Hover overlay */}
         <div className="show-card-overlay">
           {isEditing ? (
-            /* ── Edit mode ── */
             <div className="overlay-edit-form">
               <label className="overlay-edit-label">TITLE</label>
               <input
@@ -74,7 +77,6 @@ function ShowCard({ show, onStatusChange, onRequestDelete, onEditShow }) {
               </div>
             </div>
           ) : (
-            /* ── Default overlay ── */
             <>
               <select
                 className="overlay-status-select"
@@ -103,15 +105,21 @@ function ShowCard({ show, onStatusChange, onRequestDelete, onEditShow }) {
         </div>
       </div>
 
-      {/* ── Card footer ────────────────────────────────── */}
+      {/* ── Card footer — two-line vertical hierarchy ───── */}
       <div className="show-card-footer">
+        {/* Line 1: title */}
         <span className="show-card-title">{show.title}</span>
-        <span className={`status-badge status-badge--${show.status}`}>
-          {STATUS_LABELS[show.status]}
-        </span>
-        <span className="show-card-rating" aria-label={rating ? `Rating ${rating} out of 5` : "Unrated"}>
-          {rating != null ? `★ ${rating}/5` : "★ —"}
-        </span>
+
+        {/* Line 2: secondary metadata in muted lavender-gray */}
+        <div className="show-card-meta">
+          {rating != null ? (
+            <span className="show-card-rating" aria-label={`Rating ${rating} out of 5`}>
+              ★ {rating}/5
+            </span>
+          ) : (
+            <span className="show-card-rating" aria-label="Unrated">★ —</span>
+          )}
+        </div>
       </div>
 
     </div>

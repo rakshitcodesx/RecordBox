@@ -5,6 +5,7 @@ import Ranking from "./pages/Ranking";
 import Profile from "./pages/Profile";
 import ConfirmModal from "./components/ConfirmModal";
 import UndoToast from "./components/UndoToast";
+import LiveWallpaper from "./components/LiveWallpaper";
 import shows from "./data/shows";
 import initialRanking from "./data/ranking";
 import { loadRanking, saveRanking } from "./utils/storage";
@@ -186,6 +187,7 @@ function App() {
 
   return (
     <>
+      <LiveWallpaper />
       {currentPage === "ranking" && (
         <Ranking
           onNavigate={setCurrentPage}
