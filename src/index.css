@@ -133,10 +133,8 @@ header {
 .header-logo-icon {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 10px;
   object-fit: cover;
-  object-position: center;
-  transform: scale(1.15);
   display: block;
   flex-shrink: 0;
 }
