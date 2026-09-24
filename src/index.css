@@ -127,7 +127,7 @@ header {
   align-items: center;
   gap: 14px;
   text-decoration: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .header-logo-icon {
@@ -137,6 +137,7 @@ header {
   object-fit: cover;
   display: block;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .header-brand-name {
