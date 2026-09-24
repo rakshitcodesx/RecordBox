@@ -10,6 +10,20 @@ import shows from "./data/shows";
 import initialRanking from "./data/ranking";
 import { loadRanking, saveRanking } from "./utils/storage";
 
+// ── Data-version migration ─────────────────────────────────────────────────
+// Bump DATA_VERSION whenever the default seed data changes.
+// On first load after a version change the stale localStorage entries are
+// cleared so the app falls back to the new defaults in shows.js / ranking.js.
+// The theme preference is intentionally preserved across resets.
+const DATA_VERSION = "v2";
+(function migrateDataVersion() {
+  if (localStorage.getItem("showTrackerDataVersion") !== DATA_VERSION) {
+    localStorage.removeItem("showTrackerShows");
+    localStorage.removeItem("showTrackerRanking");
+    localStorage.setItem("showTrackerDataVersion", DATA_VERSION);
+  }
+})();
+
 function App() {
   const [currentPage, setCurrentPage] = useState("myshows");
 
