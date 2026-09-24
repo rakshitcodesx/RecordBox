@@ -5,6 +5,10 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RecordBox — Show &amp; Anime Tracker</title>
+    <!-- Prevent phantom horizontal scroll on mobile -->
+    <style>
+      html, body, #root { overflow-x: hidden; width: 100%; }
+    </style>
   </head>
   <body>
     <div id="root"></div>

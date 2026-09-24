@@ -1674,3 +1674,187 @@ header::after {
   filter: blur(1.5px);
   opacity: 0.55 !important;
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE  (max-width: 640px)
+   ALL rules below are strictly scoped to this breakpoint.
+   Desktop layout is pixel-for-pixel unchanged.
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+
+  /* ── 1. Wallpaper void fix ────────────────────────────── */
+  /*
+   * 100vh on iOS shrinks when the address bar appears, leaving a
+   * black void at the bottom. 100dvh (dynamic viewport height)
+   * tracks the visible viewport, so the image always fills it.
+   */
+  .lw-bg-img {
+    height: 100dvh;
+    min-height: 100%;
+    width: 100vw;
+    min-width: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  /* ── 2. Header — two-row layout ──────────────────────── */
+  /*
+   * Row 1: brand name (left) + theme toggle (right)
+   * Row 2: nav pill group, centered
+   *
+   * The header becomes auto-height (no fixed 64px) to accommodate
+   * the second row without clipping anything.
+   */
+  header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 16px;
+    gap: 8px;
+  }
+
+  /* Brand stays left; toggle is pushed to the far right */
+  .header-brand {
+    flex: 1;
+  }
+
+  .theme-toggle {
+    /* Sits on the first row to the right of the brand */
+    order: 2;
+    flex-shrink: 0;
+  }
+
+  /* Nav pill bar drops onto its own full-width second row */
+  .header-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding: 4px 6px;
+  }
+
+  .header-nav button {
+    padding: 6px 14px;
+    font-size: 11px;
+    flex: 1;
+    text-align: center;
+  }
+
+  /* ── 3. Controls row — stacked ───────────────────────── */
+  /*
+   * Search takes the full first row.
+   * Sort dropdown + view-toggle share the second row.
+   */
+  .controls-row {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .search-wrap {
+    flex: unset;
+    width: 100%;
+  }
+
+  /* Second sub-row for sort + view toggle */
+  .controls-row .sort-select,
+  .controls-row .view-toggle {
+    flex-shrink: 0;
+  }
+
+  /* Wrap sort + toggle onto one inline row */
+  .controls-row .sort-select {
+    flex: 1;
+  }
+
+  /* Force sort + toggle to sit side-by-side on a single row */
+  .controls-row > .sort-select,
+  .controls-row > .view-toggle {
+    display: inline-flex;
+  }
+
+  /* Re-wrap the two secondary controls into their own flex row */
+  .controls-row::after {
+    /* Can't use ::after to move elements — handled via flex-wrap order below */
+    display: none;
+  }
+
+  /*
+   * The controls-row has three children:
+   *   1. .search-wrap   (full width)
+   *   2. .sort-select
+   *   3. .view-toggle
+   * Flex-wrap + flex-basis forces search onto row 1, sort+toggle onto row 2.
+   */
+  .controls-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .controls-row .search-wrap {
+    flex: 0 0 100%;   /* row 1: full width */
+    order: 1;
+  }
+
+  .controls-row .sort-select {
+    flex: 1 1 0;       /* row 2: grows to fill remaining space */
+    order: 2;
+    min-width: 0;
+  }
+
+  .controls-row .view-toggle {
+    flex: 0 0 auto;    /* row 2: fixed-size toggle group */
+    order: 3;
+  }
+
+  /* ── 4. Card proportions ─────────────────────────────── */
+  /*
+   * 2-column grid is already set in the existing @media (max-width: 640px)
+   * block above. Here we tighten up the poster + footer so cards feel
+   * proportional rather than chunky on a phone screen.
+   */
+
+  /* Slightly more compact than strict 2:3 — reduces card height by ~8% */
+  .show-card-poster {
+    aspect-ratio: 2 / 2.7;
+  }
+
+  /* Tighter footer padding */
+  .show-card-footer {
+    padding: 7px 10px 8px;
+    gap: 2px;
+  }
+
+  /* Slightly smaller title on mobile */
+  .show-card-title {
+    font-size: 11px;
+  }
+
+  /* Slightly smaller meta / rating line */
+  .show-card-meta,
+  .show-card-rating {
+    font-size: 10px;
+  }
+
+  /* Tighter badge so it doesn't crowd the corner on small cards */
+  .show-card-badge {
+    top: 7px;
+    right: 7px;
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+
+  /* Status tab pills — more breathing room on small screen */
+  .show-tabs {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .show-tabs button {
+    padding: 7px 14px;
+    font-size: 11px;
+    flex: 1;
+    text-align: center;
+  }
+
+} /* end @media (max-width: 640px) */
