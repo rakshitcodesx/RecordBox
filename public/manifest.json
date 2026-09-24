@@ -1,0 +1,17 @@
+{
+  "name": "RecordBox",
+  "short_name": "RecordBox",
+  "description": "Track your shows and anime in style.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121214",
+  "theme_color": "#121214",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

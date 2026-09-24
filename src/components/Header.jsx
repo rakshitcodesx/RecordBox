@@ -3,7 +3,7 @@ function Header({ onNavigate, activePage, isDark, onToggleTheme }) {
     <header>
       {/* Brand */}
       <div className="header-brand">
-        <div className="header-logo-icon" aria-hidden="true">★</div>
+        <img src="/icon.png" alt="RecordBox Logo" className="header-logo-icon" />
         <span className="header-brand-name">RECORDBOX</span>
       </div>
 
