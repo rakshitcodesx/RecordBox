@@ -112,8 +112,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
-  height: 64px;
+  padding: 14px 40px;
+  min-height: 70px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -130,20 +130,19 @@ header {
 }
 
 .header-logo-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
   object-fit: cover;
-  display: inline-block;
-  vertical-align: middle;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  flex-shrink: 0;
 }
 
 .header-brand-name {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   color: var(--text-primary);
 }
 
